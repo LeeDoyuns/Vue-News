@@ -1,16 +1,9 @@
 <template>
-   <div>
-       <h3>이게뭐야아ㅏ아</h3>
-     {{jsonData}}   
-     <Viewer v-if="jsonData != null" :initialValue="content" />
-    </div>    
-    <!--
+    
     <div class="editors">
-        {{jsonData}}
-        <Viewer v-if="contents != null" :initialValue="content" />
-        
+        <Viewer v-if="contents != null" :initialValue="contents" />
     </div>
- -->
+ 
 </template>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css" />
@@ -29,15 +22,16 @@
         
         },
         props : {
-            jsonData : {require:true}
-        },
+            param : {require:true}
+        }
+        ,
         mounted(){
-          console.log(this.jsonData);
+          //console.log(this.param);
         },
         data(){
-            console.log(this.jsonData);
+           console.log();
            return {
-               contents : "테스트 컨텐츠"
+               contents : this.param.contents
            }
         }
     } 

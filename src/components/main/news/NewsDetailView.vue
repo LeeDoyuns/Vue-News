@@ -1,7 +1,7 @@
 <template>
     <div>
         {{NewsView.title}}
-        <Viewer v-bind:jsonData="jsonData"  style="margin-top:30px;text-align: left;" />
+        <Viewer v-bind:param="jsonData"  style="margin-top:30px;text-align: left;" />
     </div>
     
 
@@ -29,8 +29,9 @@ export default {
             contents : this.NewsView.contents,
             author : this.NewsView.author
         };
-        console.log(jsonData);
-       return jsonData
+       return {
+           jsonData
+       }
     }
 }
 </script>
