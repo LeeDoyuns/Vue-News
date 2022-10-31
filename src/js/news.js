@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const http = axios.create({
-   baseURL: 'http://localhost:8080/api',
+   baseURL: 'http://localhost:9081/api',
    withCredentials: false,
    headers:{
     Accept: 'application/json',
@@ -11,7 +11,7 @@ const http = axios.create({
 
 export default{
     getNewsDetail(id){
-        let data = {id:id};
+        let data = {newsId:id};
         return http.post("/news/view-news",data);
     }
     

@@ -50,13 +50,12 @@
                 param.title = this.newsTitle;
                 param.category = this.category;
                 param.postingTime = this.postingDateTime;
-                param.newsStatus = 'POSTING'    //이거 연주씨가 정의해야함
+                param.newsStatus = 'POSTING' 
                 param.contents = content;
                 param.imgIdArr = this.imgArr;
                 var session = JSON.parse(sessionStorage.getItem("member"));
                 param.reporterId = session.id;
 
-                console.log(param);
 
                 common.http.post('/news/createNews',JSON.stringify(param))      
                     .then((res) => {

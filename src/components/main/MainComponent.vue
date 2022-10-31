@@ -12,6 +12,9 @@
                 <keep-alive v-if="mainViewComponent == 'DefaultNewsList'">
                     <component v-bind:is="mainViewComponent" v-bind:newsList="newsList"  ></component>
                 </keep-alive>
+                <keep-alive v-else-if="mainViewComponent == 'NewsView'">
+                    <component v-bind:is="mainViewComponent" v-bind:NewsView="newsViewData"  ></component>
+                </keep-alive>
                 <keep-alive v-else >
                     <component v-bind:is="mainViewComponent" ></component>
                 </keep-alive>
@@ -41,6 +44,7 @@ import BottomComp from "../BottomItem.vue"
 import NewsView from "../main/news/NewsDetailView.vue";
 import common from '@/js/common';
 import WriteNewsVue from '../members/reporter/WriteNews.vue';
+import FindNewsVue from '../main/news/FindNews.vue';
 
 
 export default {
@@ -49,33 +53,47 @@ export default {
     DefaultNewsList: NewsList,
     BottomComp,
     NewsView,
-    WriteNewsVue
+    WriteNewsVue,
+    FindNewsVue
     },
     created(){
         this.getNewsList();
         
     },
+    
     mounted(){
         common.EventBus.$on("write", ()=>{
             this.mainViewComponent = 'WriteNewsVue';
             this.getNewsList();
         });
+        
         common.EventBus.$on("search", ()=>{
+            this.mainViewComponent = "FindNewsVue"; 
 
         });
+
         common.EventBus.$on("ranking", ()=>{
 
         });
+
         common.EventBus.$on("myPage", ()=>{
 
         });
+
         common.EventBus.$on("record", ()=>{
 
         });
+
         common.EventBus.$on("newsList", ()=>{
             this.mainViewComponent = 'DefaultNewsList';
             this.getNewsList();
         });
+
+        common.EventBus.$on("newsView", (data) => {
+            this.newsViewData = data;
+            this.mainViewComponent = 'NewsView';
+        })
+
     },
     data() {
         let newsList = [];
@@ -93,9 +111,13 @@ export default {
             {href:'icon/'+div+'.png', type:div},
             {href:"icon/myPage.png", type:'myPage'}
         ];
-            return {
+
+        let newsViewData={};
+
+        return {
             newsList,
             BottomItems,
+            newsViewData,
             mainViewComponent: "DefaultNewsList"
         }
     },
@@ -104,12 +126,9 @@ export default {
             return require("@/assets/"+icon);
         },
         getNewsList(){
-           // let session = sessionStorage.getItem("member");
-
-            /*
+            
             common.http.get('/news/selectNewsList')
                         .then((res) => {
-                            console.log(res.data.result);
                             this.newsList = [];
                             res.data.result.forEach((it)=>{
                                 var json = {};
@@ -122,8 +141,8 @@ export default {
                         .catch((err) => {
                             console.log(err);
                         })
-            */
             
+            /*
           this.newsList = [{id:1, title: '제목입니당'},
                     {id:2, title: '제목입니당2'},
                     {id:3, title: '제목입니당3'},
@@ -134,7 +153,7 @@ export default {
                     {id:8, title: '제목입니당8'},
                     {id:9, title: '제목입니당9'},
                     {id:10, title: '제목입니당10'}
-            ];
+            ];*/
         }
     }
     

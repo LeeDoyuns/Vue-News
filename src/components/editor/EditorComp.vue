@@ -36,6 +36,8 @@
             }
         },
         mounted(){
+
+            //이미지 업로드 처리
             const instance = this.$refs.toastEditor;
             instance.invoke("addHook", "addImageBlobHook", async (file, callback) => {
 

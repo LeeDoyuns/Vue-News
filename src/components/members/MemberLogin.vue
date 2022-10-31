@@ -6,8 +6,8 @@
             <input type="text" name="" id="" v-model="loginId">
         </p>
         <p>
-            <label for="loginId">Password</label>
-            <input type="text" name="" id="" v-model="password">
+            <label for="password">Password</label>
+            <input type="password" name="" id="" v-model="password">
         </p>
 
         <button style="border-radius: 40% 56%;" @click="login();" >로그인</button>
@@ -50,8 +50,19 @@ export default {
                 return false;
             }
             let login = {};
+           /* login.id = 3;
+            login.nickname = '기자1';
+            login.userType = 'REPORTER';
+
+
+            sessionStorage.setItem("member",JSON.stringify(login));
+            common.EventBus.$emit('main');
+            common.EventBus.$emit('loginHeader');*/
             login.loginId = this.loginId;
             login.password = this.password;
+
+
+            
             common.http.post('/member/login', login)
                     .then((res)=>{
                         let result = res.data.result;

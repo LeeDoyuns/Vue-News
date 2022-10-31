@@ -6,6 +6,7 @@
 
 <script>
 import http from "@/js/news"
+import common from "@/js/common";
 
     export default{
         props: {
@@ -13,11 +14,15 @@ import http from "@/js/news"
         },
         methods: {
             viewNews(id){
-                console.log(id);
-                http.viewNews()
+                http.getNewsDetail(id)
                 .then((res)=>{
-                    console.log(res);
+                    common.EventBus.$emit("newsView", res.data.result);
                 })
+                .catch((err)=>{
+                    console.log(err);
+                });
+
+
             }
         }
     }
